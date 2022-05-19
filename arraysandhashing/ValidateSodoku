@@ -1,0 +1,64 @@
+def validateSodoku(board):
+    dupDict = dict()
+
+    for i in range(9):
+        for j in range(9):
+            if board[i][j] != '.':
+                if board[i][j] not in dupDict:
+                    dupDict[board[i][j]] = [i, j]
+                else:
+                    return False 
+                
+        dupDict.clear()
+
+    for i in range(9):
+        for j in range(9):
+            if board[j][i] != '.':
+                if board[j][i] not in dupDict:
+                    dupDict[board[j][i]] = [i, j]
+                else:
+                    return False 
+                
+        dupDict.clear()
+
+    counter = 0
+    x = 0
+    y = 0
+
+    while x <= 8:
+        for i in range(x, x + 3):
+            for j in range(y, y + 3):
+
+                print(i, j, counter)
+
+                if board[i][j] != '.':
+                    if board[i][j] not in dupDict:
+                        dupDict[board[i][j]] = [i, j]
+                    else:
+                        return False
+        dupDict.clear()
+
+        y += 3
+        counter += 1
+
+        if counter == 3:   
+            counter = 0
+            x += 3
+            y = 0
+
+    return True
+
+
+
+
+
+print(validateSodoku(
+[["5","3",".",".","7",".",".",".","."]
+,["6",".",".","1","9","5",".",".","."]
+,[".","9","8",".",".",".",".","6","."]
+,["8",".",".",".","6",".",".",".","3"]
+,["4",".",".","8",".","3",".",".","1"]
+,["7",".",".",".","2",".",".",".","6"]
+,[".","6",".",".",".",".","2","8","."]
+,[".",".",".","4","1","9",".",".","5"]
+,[".",".",".",".","8",".",".","7","9"]]))
